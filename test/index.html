@@ -1,0 +1,150 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+</head>
+<body>
+
+<h2>jQuery Conditioner</h2>
+<h3>Basic, inline options</h3>
+
+<h4>Text</h4>
+<input type="text" class="tb1" placeholder="type hello world" />
+
+<div class="element1" data-conditioner data-condr-value="hello world" data-condr-input=".tb1" data-condr-action="simple?show:hide" data-condr-events="keyup">I will be shown only if the text typed is "hello world"</div>
+
+
+
+<h4>Match pattern</h4>
+<input type="text" class="patterntest" placeholder="type a valid email" />
+
+<div class="emailele1" data-conditioner data-condr-value="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" data-condr-input=".patterntest" data-condr-action="pattern?show:hide" data-condr-events="keyup">A valid email is is typed</div>
+
+
+
+
+
+<h4>Radio</h4>
+
+<label><input type="radio" name="fruits" value="hello" />Apple</label>
+<label><input type="radio" name="fruits" value="world" checked="checked"/>Bananna</label>
+<label><input type="radio" name="fruits" value="orange"/>Orange</label>
+
+<div class="element2" data-conditioner data-condr-value="orange" data-condr-input="[name=fruits]" data-condr-action="simple?show:hide" data-condr-events="click" >I will appear only when orange is selected</div>
+
+
+
+
+<h4>Checkbox</h4>
+
+<label><input type="checkbox" id="cb1" value="animal"/>animal</label>
+<label><input type="checkbox" id="cb2" value="zebra" />zebra</label>
+
+<div class="element3" data-conditioner data-condr-input="#cb1" data-condr-action="simple?show:hide" data-condr-events="click" >Animal is checked</div>
+<div class="element4" data-conditioner data-condr-input="#cb2" data-condr-action="simple?hide:show" data-condr-events="click">Zebra is unchecked</div>
+
+
+
+
+<h4>Select</h4>
+
+<select>
+	<option value="hi">Hi</option>
+	<option value="qwerty">Qwerty</option>
+</select>
+
+<div class="element5" data-conditioner data-condr-value="qwerty" data-condr-input="select" data-condr-action="simple?show:hide" data-condr-events="click">Qwerty is selected</div>
+
+
+
+
+
+
+<hr/>
+
+<h3>Relative input selected via inline</h3>
+
+<div class="wrap1">
+	<h4>Text</h4>
+	<input type="text" placeholder="type hello world" />
+</div>
+
+<div class="element1" data-conditioner data-condr-value="hello world" data-condr-input="(siblings::.wrap1)(find::input[type='text'])" data-condr-action="simple?show:hide" data-condr-events="keyup">I am selected by input relatively via inline options</div>
+
+
+
+
+<hr/>
+
+<h3>Options set externally</h3>
+
+<input type="text" class="tb2" value="" placeholder="type hi" />
+<div class="element6">This is element 6</div>
+
+
+
+<hr/>
+
+<h3>Multiple conditions</h3>
+
+<ul>
+	<li><input type="text" class="tb3" placeholder="type hey" /></li>
+	<li><label><input type="radio" name="agreecheck" value="disagree" /> I Disagree</label> <label><input type="radio" value="agree" name="agreecheck" />I Agree</label>  </li>
+	<li><label><input type="checkbox" class="cb2"/> I once again agree to the terms</label></li>
+</ul>
+<div class="multiple1">Thanks.. you can finally <button>Submit</button></div>
+
+<h3>End of demo</h3>
+
+<script src="jquery.min.js"></script>
+<script src="../jquery.conditioner.js"></script>
+
+<script>
+$(document).ready(function(){
+		
+	$( '[data-conditioner]' ).conditioner();
+	
+	
+	// options set externally
+	$('.element6').conditioner({
+		conditions: [
+			{
+				input: '.tb2',
+				type: 'simple',
+				value: 'hi'
+			}
+		],
+		events: 'keyup',
+		onTrue: function(){  $(this).fadeIn( 'slow' );  },
+		onFalse: function(){  $(this).slideUp( 'slow' );  }
+	});
+	
+	
+	// Multiple conditions
+	$('.multiple1').conditioner({
+		conditions: [
+			{
+				input: '.tb3',
+				type: 'simple',
+				value: 'hey'
+			},
+			{
+				input: '[name=agreecheck]',
+				type: 'simple',
+				value: 'agree'
+			},
+			{
+				input: '.cb2'
+			},
+		],
+		events: 'click keyup',
+		onTrue: function(){  $(this).fadeIn( 'slow' );  },
+		onFalse: function(){  $(this).slideUp( 'slow' );  }
+	});
+});
+</script>
+
+</body>
+</html>
