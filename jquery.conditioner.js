@@ -168,10 +168,17 @@
 			console.log( $inputs );
 			if( $inputs.length > 0 && events != '' ){
 				
-				$inputs.data( 'conditioner-ele', $ele );
+				if( typeof $inputs.data( 'conditioner-ele' ) === 'undefined' ){
+					$inputs.data( 'conditioner-ele', $ele );
+				}else{
+					$eles = $inputs.data( 'conditioner-ele' ).add( $ele );
+					$inputs.data( 'conditioner-ele', $eles );
+				}
 				
 				$inputs.on( events, function(){
-					checkCondition( $(this).data( 'conditioner-ele' ) );
+					$(this).data( 'conditioner-ele' ).each(function(){
+						checkCondition( $(this) );
+					});
 				});
 				
 				// Check the conditions once
