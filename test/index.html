@@ -96,6 +96,20 @@
 </ul>
 <div class="multiple1">Thanks.. you can finally <button>Submit</button></div>
 
+
+<hr/>
+
+<h3>One input and multiple elements</h3>
+
+<select id="one_ip_mul_ele">
+	<option value="hey">Say HI</option>
+	<option value="hello">Say Hello</option>
+</select>
+
+<div class="hiele" data-condr-input="#one_ip_mul_ele" data-condr-value="hey" data-condr-action="simple?show:hide" data-condr-events="click" >HI !!!!</div>
+<div class="helloele" data-condr-input="#one_ip_mul_ele" data-condr-value="hello" data-condr-action="simple?show:hide" data-condr-events="click">Hello !!!</div>
+
+
 <h3>End of demo</h3>
 
 <script src="jquery.min.js"></script>
@@ -103,7 +117,7 @@
 
 <script>
 $(document).ready(function(){
-		
+	
 	$( '[data-conditioner]' ).conditioner();
 	
 	
@@ -142,6 +156,10 @@ $(document).ready(function(){
 		events: 'click keyup',
 		onTrue: function(){  $(this).fadeIn( 'slow' );  },
 		onFalse: function(){  $(this).slideUp( 'slow' );  }
+	});
+	
+	$(document).ready(function(){
+		$('.hiele, .helloele').conditioner();
 	});
 });
 </script>
