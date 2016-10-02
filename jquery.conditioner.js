@@ -1,7 +1,7 @@
 /* 
  * jQuery - Conditioner - v1.0
  * http://www.aakashweb.com/
- * Copyright 2015, Aakash Chakravarthy
+ * Copyright 2016, Aakash Chakravarthy
  * Released under the MIT License.
  */
  
@@ -165,7 +165,7 @@
 			$ele = $(this).data( 'conditioner-opts', opts );
 			$inputs = prepareConds( $ele );
 			events = ( typeof $ele.data( 'condr-events' ) !== 'undefined' ) ? $ele.data( 'condr-events' ) : opts.events;
-			console.log( $inputs );
+			
 			if( $inputs.length > 0 && events != '' ){
 				
 				if( typeof $inputs.data( 'conditioner-ele' ) === 'undefined' ){

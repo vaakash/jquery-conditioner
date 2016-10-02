@@ -1,55 +1,73 @@
 # jQuery Conditioner
 
-This plugin allows to conditionally display elements based on input element values.
+This plugin allows to conditionally display elements based on an input element value. It has inline-options feature which allows to do this very easily, something similar to angular JS's `ng-if` feature.
 
-### Use case
+[![jQuery Conditioner demo](test/demo.gif)](http://http://www.aakashweb.com/demos/jquery-conditioner)
 
-This plugin is really useful in forms where we want to conditionally show fields based on some input element value. Consider the below example, where I want to show the advanced options form when advanced option is selected
+This plugin was created for [WP Socializer](http://www.aakashweb.com/wordpress-plugins/wp-socializer/) and WP Socializer heavily uses this plugin to conditionally show/hide options in the admin settings page.
 
-##### HTML:
-```
-Settings:
-<label><input type="radio" value="normal" name="settings"/> Normal</label>
-<label><input type="radio" value="advanced" name="settings"/> Advanced</label>
+[Open demo](http://www.aakashweb.com/demos/jquery-conditioner)
 
-<div class="advanced-options" data-condr-input="[name=settings]" data-condr-value="advanced" data-condr-action="simple?show:hide" data-condr-events="click">
-    Some advanced options fields
+#### Example:
+
+```HTML
+<select id="fruits">
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="mango">Mango</option>
+</select>
+
+<!-- Plugin options given inline -->
+<div class="banana-section"
+data-condr-input="#fruits"
+data-condr-value="banana"
+data-condr-action="simple?show:hide"
+data-condr-events="click">
+    Here are the Banana options ..
 </div>
 
-<script>$('.advanced-options').conditioner();</script>
+<script>$('.banana-section').conditioner();</script>
 ```
-In the above example the advanced-options form will be visible when advanced is selected. Everything initialized through inline data param !
+
+In the above example `.banana-section` will be displayed only when the value of `#fruits` is `banana`
+
+### Options
+
+Options can be set in two different ways.
+
+- Inline options ( above example, supports only one condition )
+- External options ( below example, supports multiple conditions )
 
 ### External Options
 
-```
-$('.elementToConditionalize').conditioner({
-        // Check multiple conditions from different inputs. Condition will pass only if all of them satisfy
-		conditions: [
-			{
-				input: '.textbox',
-				type: 'simple', // If value is a pattern to match then type is 'pattern'
-				value: 'hey'
-			},
-			{
-				input: '[name=agreecheck]',
-				type: 'simple',
-				value: 'agree'
-			},
-			{
-				input: '.checkbox'
-			},
-		],
-		events: 'click keyup',
-		onTrue: function(){  $(this).fadeIn( 'slow' );  },
-		onFalse: function(){  $(this).slideUp( 'slow' );  }
-	});
+```javascript
+$('.elementToShow').conditioner({
+    // Check multiple conditions from different inputs. Condition will pass only if all of them satisfy
+    conditions: [
+        {
+            input: '.textbox',
+            type: 'simple', // If value is a pattern to match then type is 'pattern'
+            value: 'hey'
+        },
+        {
+            input: '[name=agreecheck]',
+            type: 'simple',
+            value: 'agree'
+        },
+        {
+            input: '.checkbox'
+        },
+    ],
+    events: 'click keyup',
+    onTrue: function(){  $(this).fadeIn( 'slow' );  },
+    onFalse: function(){  $(this).slideUp( 'slow' );  }
+});
 ```
 
 ### Documentation
 
-In the works ...
+[Click here](http://www.aakashweb.com/docs/jquery-conditioner-docs/) to see the docs of this plugin.
 
 ### License
 
-Copyright (c) 2015 [Aakash Chakravarthy](http://www.aakashweb.com/), released under the MIT License.
+Copyright (c) 2016 [Aakash Chakravarthy](http://www.aakashweb.com/), released under the MIT License.
